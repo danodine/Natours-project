@@ -4,7 +4,12 @@ const authController = require('./../controllers/authController');
 const reviewRouter = require('./../routes/reviewRoutes');
 
 const router = express.Router();
-// to let others embead in there website
+
+// router.param('id', tourController.checkID);
+
+// POST /tour/234fad4/reviews
+// GET /tour/234fad4/reviews
+
 router.use('/:tourId/reviews', reviewRouter);
 
 router
@@ -20,11 +25,12 @@ router
     tourController.getMonthlyPlan
   );
 
-//to search with in an area
 router
   .route('/tours-within/:distance/center/:latlng/unit/:unit')
   .get(tourController.getToursWithin);
-// fin how close they are
+// /tours-within?distance=233&center=-40,45&unit=mi
+// /tours-within/233/center/-40,45/unit/mi
+
 router.route('/distances/:latlng/unit/:unit').get(tourController.getDistances);
 
 router
@@ -35,12 +41,6 @@ router
     authController.restrictTo('admin', 'lead-guide'),
     tourController.createTour
   );
-
-// before leting others acces all tours whe remove the protect it shude all be protected
-// router
-//   .route('/')
-//   .get(authController.protect, tourController.getAllTours)
-//   .post(authController.protect, authController.restrictTo('admin', 'lead-guide'), tourController.createTour);
 
 router
   .route('/:id')
