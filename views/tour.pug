@@ -2,7 +2,7 @@ extends base
 include _reviewCard
 
 block append head 
-    script(src=`https://maps.googleapis.com/maps/api/js?key=AIzaSyB4SysZnSbKW0l0rjNW8hafMv30hoahU0c&callback=initMap` async defer)
+    script(src=`https://maps.googleapis.com/maps/api/js?key=apikey&callback=initMap` async defer)
     script(src='/js/map.js' defer)
 
 mixin overviewBox(label, text, icon)
