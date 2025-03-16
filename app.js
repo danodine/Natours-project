@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
@@ -11,12 +12,50 @@ const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
+const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
 
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, '/views'));
+
 // 1) GLOBAL MIDDLEWARES
 
-app.use(helmet());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// todo dentro del helm es por los mapas de google lo hace mas inseguro pero para esto es necesario
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          'https://maps.googleapis.com',
+          'https://cdnjs.cloudflare.com',
+          "'unsafe-inline'"
+        ],
+        styleSrc: ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+        imgSrc: [
+          "'self'",
+          'data:',
+          'blob:',
+          'https://maps.gstatic.com',
+          'https://maps.googleapis.com'
+        ],
+        connectSrc: [
+          "'self'",
+          'http://127.0.0.1:3000',
+          'https://maps.googleapis.com',
+          'https://maps.gstatic.com',
+          'https://rpc.goog',
+          'https://*.googleapis.com'
+        ]
+      }
+    }
+  })
+);
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -49,14 +88,13 @@ app.use(
 
 app.use(hpp());
 
-app.use(express.static(`${__dirname}/public`));
-
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
 
 // 3) ROUTES
+app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
