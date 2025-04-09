@@ -1,4 +1,4 @@
-#Overview
+# Overview
 _________________
 This is a Node.js practice application developed to enhance skills in building web applications using modern technologies. This project focuses on creating a comprehensive tour booking platform, incorporating various features and best practices in web development.
 
@@ -14,7 +14,7 @@ Reviews and Ratings: Users can leave reviews and ratings for tours.​
 
 Responsive Design: Optimized for various devices and screen sizes.​
 
-##Technologies Used
+## Technologies Used
 _________________
 Node.js: JavaScript runtime for server-side development.​
 
@@ -31,7 +31,7 @@ CSS: Styling the user interface.​
 Getting Started
 To set up the project locally, follow these steps:
 
-##Clone the Repository:
+## Clone the Repository:
 _________________
 
 bash
@@ -66,7 +66,7 @@ Access the Application:
 
 Open your browser and navigate to http://localhost:3000 to view the application.
 
-###Project Structur
+### Project Structur
 _________________
 The project's directory structure is organized as follows:​
 
@@ -86,7 +86,7 @@ app.js: Main application file where Express app is configured.​
 
 server.js: Entry point to start the server.​
 
-###Contributing
+### Contributing
 _________________
 Contributions are welcome! To contribute:
 
