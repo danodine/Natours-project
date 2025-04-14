@@ -1,2 +1,6 @@
 node_modules
+.cache
+.qodo
 *.env
+dev-data/templates/
+dev-data/data/
